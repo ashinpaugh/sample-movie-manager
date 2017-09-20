@@ -1,0 +1,28 @@
+{% stylesheets
+    'assets/vendor/bootstrap/dist/css/bootstrap.min.css'
+    'assets/vendor/bootstrap/dist/css/bootstrap-theme.min.css'
+    'assets/vendor/jquery-ui/themes/base/jquery-ui.min.css'
+    'assets/vendor/chosen/chosen.min.css'
+    filter='cssrewrite'
+    output='assets/compiled/css/libraries.css'
+    
+%}
+    <link rel="stylesheet" type="text/css" href="{{ asset_url }}" />
+{% endstylesheets %}
+
+{% stylesheets
+    '@ATSMovieBundle/Resources/public/less/global.less'
+    output='assets/compiled/css/global.css'
+    filter='cssrewrite,lessphp'
+%}
+    <link rel="stylesheet" type="text/css" href="{{ asset_url }}" />
+{% endstylesheets %}
+
+{% stylesheets
+    '@ATSMovieBundle/Resources/public/css/chosen-boostrap-theme.css'
+    output='assets/compiled/css/themes.css'
+    filter='cssrewrite,lessphp'
+%}
+    <link rel="stylesheet" type="text/css" href="{{ asset_url }}" />
+{% endstylesheets %}
+

@@ -1,0 +1,19 @@
+<div class="container-fluid top-nav">
+    <div class="row text-center">
+        <div class="col-sm-3">
+            {% if app.user %}Welcome {{ app.user.username }}!{% endif %}
+        </div>
+        
+        <div class="col-sm-7">
+            <h4>Austin's Movie Manager</h4>
+        </div>
+        
+        {% if app.user %}
+            <div class="col-sm-2">Logout</div>
+        {% else %}
+            <div class="col-sm-2 login-container">
+                <a href="" title="login">Login</a>
+            </div>
+        {% endif %}
+    </div>
+</div>

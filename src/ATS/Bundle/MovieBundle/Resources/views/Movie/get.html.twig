@@ -1,0 +1,46 @@
+{% for movie in movies %}
+    <div class="col-xs-2 movie-tile text-center" data-id="{{ movie.id }}">
+        <div class="title">{{ movie.title }}</div>
+        
+        {% image
+            '@ATSMovieBundle/Resources/public/images/movie-placeholder.png'
+            output='images/movie-placeholder.png'
+        %}
+            <img src="{{ asset_url }}" alt="Movie Poster" />
+        {% endimage %}
+        
+        <div class="meta-data">
+            <div class="row">
+                {#<span>&#9734;</span><span>&#9734;</span><span>&#9734;</span><span>&#9734;</span><span>&#9734;</span>#}
+                <div class="col-sm-5">Date Added:</div>
+                <div class="col-sm-7">{{ movie.getDateCreated()|date('m/d/Y') }}</div>
+            </div>
+            
+            <div class="row">
+                <div class="col-sm-5">Released:</div>
+                <div class="col-sm-7">{{ movie.getYear() }}</div>
+            </div>
+            
+            <div class="row">
+                <div class="col-sm-5">Runtime:</div>
+                <div class="col-sm-7">{{ movie.getRuntime() }}</div>
+            </div>
+            
+            <div class="row">
+                <div class="col-sm-5">Reviews:</div>
+                <div class="col-sm-7">{{ movie.reviews|length }}</div>
+            </div>
+            
+            <div class="row">
+                <div class="col-sm-5">Avg Rating:</div>
+                <div class="col-sm-7">{{ movie.avgRating|round(2) }}</div>
+            </div>
+            
+            <div class="row">
+                <div class="col-sm-5"></div>
+                <div class="col-sm-7"></div>
+            </div>
+            
+        </div>
+    </div>
+{% endfor %}

@@ -1,0 +1,15 @@
+<script>
+    let movies = {{ render(controller('ATSMovieBundle:Movie:get', {
+        '_format' : 'json'
+    })) }};
+</script>
+
+<div class="row search-wrapper">
+    <label for="search" class="label" aria-hidden="true">Search:</label>
+    
+    <div class="col-xs-offset-2 col-xs-8">
+        <select id="search" class="chosen-select form-control" data-placeholder="Seach for an existing movie...">
+            <option></option>
+        </select>
+    </div>
+</div>

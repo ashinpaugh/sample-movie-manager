@@ -1,0 +1,43 @@
+.top-nav {
+  //background: #1919d2;
+  //color: #FFF;
+  border-radius: 15px;
+  margin-bottom: 2em;
+  
+  .login-container a {
+    line-height: 2.5em;
+  }
+}
+
+/**
+ * @see https://css-tricks.com/star-ratings/
+ */
+.rating {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+}
+.rating > span {
+  display: inline-block;
+  position: relative;
+  width: 1.1em;
+}
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+   content: "\2605";
+   position: absolute;
+}
+
+.body-wrapper {
+  width: 85%;
+  
+  .available-movies {
+    margin-top: 2em;
+    
+    .movie-tile {
+      img {
+        width: 100px;
+        height: 100px;
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% embed 'components/head.html.twig' %}
+        {% endembed %}
+    </head>
+    
+    <body>
+        {% include 'top-nav.html.twig' %}
+        
+        <div class="container-fluid body-wrapper">
+            {% block body %}{% endblock %}
+        </div>
+        
+        {% include 'components/foot.html.twig' %}
+    </body>
+</html>

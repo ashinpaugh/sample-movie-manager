@@ -1,0 +1,7 @@
+home:
+    type:     annotation
+    resource: "@ATSMovieBundle/Controller/DefaultController.php"
+
+api:
+    type:     rest
+    resource: "@ATSMovieBundle/Controller/"

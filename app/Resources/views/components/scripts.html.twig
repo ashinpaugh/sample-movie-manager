@@ -1,0 +1,16 @@
+{% javascripts
+    'assets/vendor/jquery/dist/jquery.min.js'
+    'assets/vendor/jquery-ui/jquery-ui.min.js'
+    'assets/vendor/bootstrap/dist/js/bootstrap.min.js'
+    'assets/vendor/chosen/chosen.jquery.min.js'
+    output='assets/compiled/scripts/libraries.js'
+%}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+{% javascripts
+    '@ATSMovieBundle/Resources/public/js/controller/*/*.js'
+    output='assets/compiled/scripts/controllers.js'
+%}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
