@@ -14,7 +14,7 @@ class LoadReviews extends AbstractFixture
      *
      * @param ObjectManager $manager
      */
-    public function load(ObjectManager $manager)
+    /*public function load(ObjectManager $manager)
     {
         $review = new Review();
         
@@ -38,7 +38,7 @@ class LoadReviews extends AbstractFixture
         $this->store($manager, $review, 'r2');
         
         $manager->flush();
-    }
+    }*/
     
     /**
      * Get the order of this fixture

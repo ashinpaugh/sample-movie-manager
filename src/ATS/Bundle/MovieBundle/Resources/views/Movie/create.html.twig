@@ -1,0 +1,73 @@
+<form id="frm-create" method="post" action="{{ path('post_movie_create') }}" class="container-fluid">
+    <div class="row">
+        <label for="title" class="col-md-3 control-label">
+            <span class="fa fa-info-circle" data-toggle="tooltip" data-original-title="Required"></span>
+            Title:
+        </label>
+
+        <div class="col-md-9">
+            <input id="title" type="text" name="title" class="form-control" minlength="1" maxlength="50" />
+        </div>
+    </div>
+    
+    <div class="row">
+        <label for="format" class="col-md-3 control-label">
+            <span class="fa fa-info-circle" data-toggle="tooltip" data-original-title="Required"></span>
+            Format:
+        </label>
+
+        <div class="col-md-9">
+            <select id="format" class="chosen-select form-control" name="format" required>
+                <option></option>
+                <option value="Streaming">Streaming</option>
+                <option value="DVD">DVD</option>
+                <option value="VHS">VHS</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="row">
+        <label for="length" class="col-md-3 control-label">
+            <span class="fa fa-info-circle" data-toggle="tooltip" data-original-title="Required. In minutes."></span>
+            Run-time:
+        </label>
+
+        <div class="col-md-9">
+            <input id="length" type="text" name="length" class="form-control" placeholder="Duration in minutes..." min="1" max="499" />
+        </div>
+    </div>
+    
+    <div class="row">
+        <label for="year" class="col-md-3 control-label">
+            <span class="fa fa-info-circle" data-toggle="tooltip" data-original-title="Required"></span>
+            Year:
+        </label>
+
+        <div class="col-md-9">
+            <select id="year" class="chosen-select form-control" name="year" required>
+                {% for i in 1801..2099 %}
+                    <option value="{{ i }}">{{ i }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    
+    <div class="row">
+        <label for="rating" class="col-md-3 control-label">
+            <span class="fa fa-info-circle" data-toggle="tooltip" data-original-title="Required"></span>
+            Rating:
+        </label>
+
+        <div class="col-md-9">
+            <fieldset class="rating text-left">
+                {% for i in 5..1 %}
+                    <input id="rating-{{ i }}" type="radio" name="rating" value="{{ i }}"><label for="rating-{{ i }}">{{ i }} star</label>
+                {% endfor %}
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="actions text-right">
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </div>
+</form>

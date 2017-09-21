@@ -1,15 +1,25 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ashinpaugh
- * Date: 9/20/17
- * Time: 6:24 PM
- */
 
 namespace ATS\Bundle\MovieBundle\Controller;
 
+use FOS\RestBundle\Controller\Annotations\Post;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\Request;
 
-class AccountController
+/**
+ * @Route("/account")
+ * @Security("has_role('ROLE_USER')")
+ */
+class AccountController extends AbstractController
 {
-    
+    /**
+     * @Route(".{_format}", name="account.view")
+     */
+    public function viewAction()
+    {
+        return $this->forward('ATSMovieBundle:Movie:get', [
+            'user' => $this->getUser()->getId(),
+        ]);
+    }
 }

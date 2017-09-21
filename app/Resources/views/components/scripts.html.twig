@@ -7,10 +7,3 @@
 %}
     <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
-
-{% javascripts
-    '@ATSMovieBundle/Resources/public/js/controller/*/*.js'
-    output='assets/compiled/scripts/controllers.js'
-%}
-    <script src="{{ asset_url }}"></script>
-{% endjavascripts %}

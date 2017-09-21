@@ -1,19 +1,25 @@
 <div class="container-fluid top-nav">
-    <div class="row text-center">
-        <div class="col-sm-3">
+    <div class="row text-center nav-items">
+        <div class="col-sm-2 username-wrapper">
             {% if app.user %}Welcome {{ app.user.username }}!{% endif %}
         </div>
         
-        <div class="col-sm-7">
+        <div class="col-sm-2 nav-actions">
+            <a id="btn-movie-create" href="{{ path('get_movie_create', {
+                '_format' : 'html'
+            }) }}"><i class="fa fa-plus" aria-hidden="true"></i> Add</a>
+        </div>
+        
+        <div class="col-sm-5">
             <h4>Austin's Movie Manager</h4>
         </div>
         
-        {% if app.user %}
-            <div class="col-sm-2">Logout</div>
-        {% else %}
-            <div class="col-sm-2 login-container">
-                <a href="" title="login">Login</a>
-            </div>
-        {% endif %}
+        <div class="col-sm-2 login-container">
+            {% if app.user %}
+                <a href="{{ logout_path('main') }}" class="btn btn-sm btn-secondary">Logout</a>
+            {% else %}
+                <button id="btn-login" type="button" class="btn btn-sm btn-primary">Login</button>
+            {% endif %}
+        </div>
     </div>
 </div>

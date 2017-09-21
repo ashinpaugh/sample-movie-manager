@@ -22,6 +22,7 @@
         "doctrine/doctrine-fixtures-bundle": "^2.4",
         "doctrine/orm": "^2.5",
         "friendsofsymfony/rest-bundle": "^2.2",
+        "hwi/oauth-bundle": "^0.5.3",
         "incenteev/composer-parameter-handler": "^2.0",
         "jms/serializer-bundle": "^2.1",
         "leafo/lessphp": "^0.5.0",
@@ -54,7 +55,9 @@
             "@symfony-scripts"
         ],
         "compile": [
-            "bin/console assetic:dump"
+            "bin/console assets:install --symlink --relative",
+            "bin/console assetic:dump --env=prod",
+            "bin/console doctrine:fixtures:load -q"
         ]
     },
     "config": {

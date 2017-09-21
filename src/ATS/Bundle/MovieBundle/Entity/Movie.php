@@ -22,10 +22,10 @@ class Movie extends AbstractEntity
     /**
      * The reviews created for this movie.
      * 
-     * @ORM\OneToMany(targetEntity="Review", mappedBy="movie")
-     * @var Review[]
+     * #ORM\OneToMany(targetEntity="Review", mappedBy="movie")
+     * #var Review[]
      */
-    protected $reviews;
+    //protected $reviews;
     
     /**
      * @ORM\Id()
@@ -69,6 +69,14 @@ class Movie extends AbstractEntity
     protected $year;
     
     /**
+     * The rating the user gave the movie.
+     * 
+     * @ORM\Column(type="smallint")
+     * @var Integer
+     */
+    protected $rating;
+    
+    /**
      * The date the movie was added to the manager.
      * 
      * @ORM\Column(type="datetime")
@@ -76,21 +84,6 @@ class Movie extends AbstractEntity
      */
     protected $date_created;
     
-    public function getAvgRating()
-    {
-        $total = $count = 0;
-        
-        foreach ($this->reviews as $review) {
-            $count++;
-            $total += $review->getRating();
-        }
-        
-        if (!$count) {
-            return 1;
-        }
-        
-        return ($total / $count);
-    }
     
     public function getRuntime()
     {
@@ -102,7 +95,7 @@ class Movie extends AbstractEntity
     
     public function __construct()
     {
-        $this->reviews = new ArrayCollection();
+        //$this->reviews = new ArrayCollection();
     }
     
     /**
@@ -204,7 +197,7 @@ class Movie extends AbstractEntity
     /**
      * @return Review[]
      */
-    public function getReviews()
+    /*public function getReviews()
     {
         return $this->reviews;
     }
@@ -214,19 +207,35 @@ class Movie extends AbstractEntity
         $this->reviews->add($review);
         
         return $this;
-    }
+    }*/
     
     /**
      * @param Review[] $reviews
      *
      * @return Movie
      */
-    public function setReviews($reviews)
+    /*public function setReviews($reviews)
     {
         $this->reviews = $reviews;
         
         return $this;
-    }
+    }*/
+    
+    /*public function getAvgRating()
+    {
+        $total = $count = 0;
+        
+        foreach ($this->reviews as $review) {
+            $count++;
+            $total += $review->getRating();
+        }
+        
+        if (!$count) {
+            return 1;
+        }
+        
+        return ($total / $count);
+    }*/
     
     /**
      * @return User
@@ -255,4 +264,25 @@ class Movie extends AbstractEntity
     {
         return $this->date_created;
     }
+    
+    /**
+     * @return int
+     */
+    public function getRating()
+    {
+        return $this->rating;
+    }
+    
+    /**
+     * @param int $rating
+     *
+     * @return Movie
+     */
+    public function setRating($rating)
+    {
+        $this->rating = $rating;
+        
+        return $this;
+    }
+
 }

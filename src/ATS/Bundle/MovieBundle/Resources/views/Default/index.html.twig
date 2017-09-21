@@ -1,9 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block stylesheets %}
+{% block javascripts %}
     {{ parent() }}
     
-    
+    {% javascripts
+        '@ATSMovieBundle/Resources/public/js/controller/Default/index.js'
+        output='assets/compiled/scripts/controllers/default-index.js'
+    %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock %}
 
 {% block body %}
@@ -17,4 +22,6 @@
         })) }}
     </div>
 
+    {% embed '@ATSMovie/Default/components/login.html.twig' %}
+    {% endembed %}
 {% endblock %}

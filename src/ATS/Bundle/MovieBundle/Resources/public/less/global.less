@@ -1,30 +1,44 @@
+@import 'review-stars.less';
+
 .top-nav {
   //background: #1919d2;
   //color: #FFF;
   border-radius: 15px;
   margin-bottom: 2em;
   
-  .login-container a {
-    line-height: 2.5em;
+  .nav-items {
+    margin-top: 0.5em;
+    
+    h4 {
+      margin-top: 0;
+    }
   }
 }
 
 /**
  * @see https://css-tricks.com/star-ratings/
  */
-.rating {
-  unicode-bidi: bidi-override;
-  direction: rtl;
-}
-.rating > span {
-  display: inline-block;
-  position: relative;
-  width: 1.1em;
-}
-.rating > span:hover:before,
-.rating > span:hover ~ span:before {
-   content: "\2605";
-   position: absolute;
+#frm-create {
+  #rating {
+    input {
+      display: none;
+    }
+    
+    /*unicode-bidi: bidi-override;
+    direction: rtl;
+  
+    & > span {
+      display: inline-block;
+      position: relative;
+      width: 1.1em;
+    }
+    & > span:hover:before,
+    & > span:hover ~ span:before {
+       content: "\2605";
+       position: absolute;
+    }*/
+    
+  }
 }
 
 .body-wrapper {
@@ -38,6 +52,17 @@
         width: 100px;
         height: 100px;
       }
+    }
+  }
+  
+  .credentials { 
+    #frm-signup {
+      display: none;
+    }
+    
+    .actions {
+      float:right;
+      margin-top:0.5em
     }
   }
 }

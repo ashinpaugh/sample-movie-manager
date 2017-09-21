@@ -6,8 +6,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToOne;
 
 /**
- * @ORM\Entity()
- * @ORM\HasLifecycleCallbacks()
+ * Not used. Seems excessive for stated requirements.
+ * 
+ * #ORM\Entity()
+ * #ORM\HasLifecycleCallbacks()
  */
 class Review extends AbstractEntity
 {

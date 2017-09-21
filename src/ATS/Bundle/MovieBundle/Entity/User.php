@@ -4,24 +4,28 @@ namespace ATS\Bundle\MovieBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity()
  */
-class User extends AbstractEntity implements UserInterface
+class User extends AbstractEntity implements UserInterface, \Serializable //EquatableInterface
 {
     /**
+     * @Serializer\Exclude()
+     * 
      * @ORM\OneToMany(targetEntity="Movie", mappedBy="owner")
      * @var Movie[]
      */
     protected $movies;
     
     /**
-     * @ORM\OneToMany(targetEntity="Review", mappedBy="user")
-     * @var Review[]
+     * #ORM\OneToMany(targetEntity="Review", mappedBy="user")
+     * #var Review[]
      */
-    protected $reviews;
+    //protected $reviews;
     
     /**
      * @ORM\Id()
@@ -32,20 +36,25 @@ class User extends AbstractEntity implements UserInterface
     protected $id;
     
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", unique=true)
      * @var String
      */
     protected $username;
     
     /**
+     * @Serializer\Exclude()
+     * 
      * @ORM\Column(type="string")
      * @var String
      */
     protected $password;
     
+    /**
+     * User constructor.
+     */
     public function __construct()
     {
-        $this->reviews = new ArrayCollection();
+        //$this->reviews = new ArrayCollection();
         $this->movies  = new ArrayCollection();
     }
     
@@ -57,6 +66,11 @@ class User extends AbstractEntity implements UserInterface
         return $this->movies;
     }
     
+    /**
+     * @param Movie $movie
+     *
+     * @return $this
+     */
     public function addMovie(Movie $movie)
     {
         $this->movies->add($movie);
@@ -79,29 +93,34 @@ class User extends AbstractEntity implements UserInterface
     /**
      * @return Review[]
      */
-    public function getReviews()
+    /*public function getReviews()
     {
         return $this->reviews;
-    }
+    }*/
     
-    public function addReview(Review $review)
+    /**
+     * @param Review $review
+     *
+     * @return $this
+     */
+    /*public function addReview(Review $review)
     {
         $this->reviews->add($review);
         
         return $this;
-    }
+    }*/
     
     /**
      * @param Review[] $reviews
      *
      * @return User
      */
-    public function setReviews($reviews)
+    /*public function setReviews($reviews)
     {
         $this->reviews = $reviews;
         
         return $this;
-    }
+    }*/
     
     /**
      * @return int
@@ -109,6 +128,20 @@ class User extends AbstractEntity implements UserInterface
     public function getId()
     {
         return $this->id;
+    }
+    
+    /**
+     * Required for the authentication process.
+     * 
+     * @param $id
+     *
+     * @return $this
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        
+        return $this;
     }
     
     /**
@@ -152,32 +185,39 @@ class User extends AbstractEntity implements UserInterface
     }
     
     /**
-     * Returns the roles granted to the user.
-     *
-     * <code>
-     * public function getRoles()
-     * {
-     *     return array('ROLE_USER');
-     * }
-     * </code>
-     *
-     * Alternatively, the roles might be stored on a ``roles`` property,
-     * and populated in any number of different ways when the user object
-     * is created.
-     *
-     * @return (Role|string)[] The user roles
+     * {@inheritdoc}
      */
     public function getRoles()
     {
-        return ['ROLE_USER'];
+        return ["ROLE_USER"];
     }
     
     /**
-     * Returns the salt that was originally used to encode the password.
+     * @param array $roles
      *
-     * This can return null if the password was not encoded using a salt.
+     * @return $this
+     */
+    public function setRoles(array $roles)
+    {
+        $this->roles = $roles;
+        
+        return $this;
+    }
+    
+    /**
+     * @param $salt
      *
-     * @return string|null The salt
+     * @return $this
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+        
+        return $this;
+    }
+    
+    /**
+     * {@inheritdoc}
      */
     public function getSalt()
     {
@@ -185,13 +225,40 @@ class User extends AbstractEntity implements UserInterface
     }
     
     /**
-     * Removes sensitive data from the user.
-     *
-     * This is important if, at any given point, sensitive information like
-     * the plain-text password is stored on this object.
+     * {@inheritdoc}
      */
     public function eraseCredentials()
     {
         return $this;
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function serialize()
+    {
+        return serialize([
+            'id'       => $this->getId(),
+            'username' => $this->getUsername(),
+            'password' => $this->getPassword(),
+            'salt'     => $this->getSalt(),
+            'roles'    => $this->getRoles(),
+        ]);
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function unserialize($serialized)
+    {
+        $results = unserialize($serialized);
+        
+        $this
+            ->setId($results['id'])
+            ->setUsername($results['username'])
+            ->setPassword($results['password'])
+            ->setSalt($results['salt'])
+            ->setRoles($results['roles'])
+        ;
     }
 }

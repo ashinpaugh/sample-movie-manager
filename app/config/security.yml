@@ -21,13 +21,20 @@ security:
             security: false
 
         main:
+            provider: mysql_provider
+            
             anonymous: ~
-            # activate different ways to authenticate
-
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
-
+            
             # https://symfony.com/doc/current/security/form_login_setup.html
-            #form_login: ~
             form_login:
-                provider: mysql_provider
+                login_path:          login
+                check_path:          login_check
+                default_target_path: /
+            
+            logout:
+                path:   /logout
+                target: /
+
+    access_control:
+        - { path: ^/login,  roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/logout, roles: ROLE_USER }

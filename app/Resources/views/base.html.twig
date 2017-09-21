@@ -6,12 +6,16 @@
     </head>
     
     <body>
-        {% include 'top-nav.html.twig' %}
+        {% embed 'top-nav.html.twig' %}
+        {% endembed %}
         
         <div class="container-fluid body-wrapper">
             {% block body %}{% endblock %}
         </div>
         
-        {% include 'components/foot.html.twig' %}
+        {% embed 'components/foot.html.twig' %}
+        {% endembed %}
+        
+        {% block javascripts %}{% endblock %}
     </body>
 </html>
