@@ -1,7 +1,9 @@
 {% set id       = movie is defined ? 'movie-' ~ movie.id ~ '-' : '' %}
-{% set is_owner = (app.user and movie is defined) and (app.user.id == movie.owner.id) %}
+{% set is_owner = (create_flow is defined and create_flow) or (app.user and movie is defined) and (app.user.id == movie.owner.id) %}
 
 <div class="rating">
+    <div class="rating-overlay"></div>
+    
     {% for i in 5..1 %}
         <input id="{{ id }}rating-{{ i }}" type="radio" name="rating" value="{{ i }}"{% if movie is defined and movie.rating == i %} checked{% endif %}{% if not is_owner %} disabled{% endif %} required>
         <label for="{{ id }}rating-{{ i }}">{{ i }} star</label>

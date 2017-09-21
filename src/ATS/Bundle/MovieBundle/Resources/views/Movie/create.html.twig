@@ -61,7 +61,10 @@
         </label>
 
         <div class="col-md-9">
-            {% include '@ATSMovie/Movie/components/rating.html.twig' %}
+            {% embed '@ATSMovie/Movie/components/rating.html.twig' with {
+                'create_flow' : true
+            } %}
+            {% endembed %}
         </div>
     </div>
 

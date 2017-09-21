@@ -65,6 +65,10 @@
                     .end()
                     .find('input, select')
                         .toggleClass('hidden')
+                    .end()
+                .end()
+                .find('.rating-overlay')
+                    .toggleClass('hidden')
             ;
         });
         

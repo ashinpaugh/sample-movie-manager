@@ -58,7 +58,7 @@
             e.preventDefault();
 
             var tile = $(this).parents('.movie-tile');
-            tile.find('.row').find('span').hide().end().find('input, select').toggleClass('hidden');
+            tile.find('.row').find('span').hide().end().find('input, select').toggleClass('hidden').end().end().find('.rating-overlay').toggleClass('hidden');
         });
 
         $('.delete').click(function (e) {
