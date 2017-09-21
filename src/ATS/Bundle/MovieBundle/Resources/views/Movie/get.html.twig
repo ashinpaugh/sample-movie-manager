@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <span>{{ movie.title }}</span>
-                <input name="title" type="text" class="hidden form-control" value="{{ movie.title }}" minlength="1" maxlength="50">
+                <input name="title" type="text" class="hidden form-control" value="{{ movie.title }}" pattern=".{1,50}" required>
             </div>
         </div>
         
@@ -47,7 +47,7 @@
                 <div class="col-sm-5">Released:</div>
                 <div class="col-sm-7">
                     <span>{{ movie.getYear() }}</span>
-                    <input name="year" type="text" class="hidden form-control" value="{{ movie.getYear() }}" min="1801" max="2099">
+                    <input name="year" type="number" class="hidden form-control" value="{{ movie.getYear() }}" min="1801" max="2099" required>
                 </div>
             </div>
             
@@ -55,7 +55,7 @@
                 <div class="col-sm-5">Runtime:</div>
                 <div class="col-sm-7">
                     <span>{{ movie.getRuntime() }}</span>
-                    <input name="length" type="text" class="hidden form-control" value="{{ movie.length / 60 }}" min="1" max="499">
+                    <input name="length" type="number" class="hidden form-control" value="{{ movie.length / 60 }}" min="1" max="499" required>
                 </div>
             </div>
             
