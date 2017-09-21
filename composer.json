@@ -56,8 +56,7 @@
         ],
         "compile": [
             "bin/console assets:install --symlink --relative",
-            "bin/console assetic:dump --env=prod",
-            "bin/console doctrine:fixtures:load -q"
+            "bin/console assetic:dump --env=prod"
         ]
     },
     "config": {
