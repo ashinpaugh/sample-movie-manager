@@ -1,10 +1,10 @@
 <div class="container-fluid top-nav">
     <div class="row text-center nav-items">
-        <div class="col-sm-2 username-wrapper">
+        <div class="col-xs-3 username-wrapper">
             {% if app.user %}Welcome {{ app.user.username }}!{% endif %}
         </div>
         
-        <div class="col-sm-2 nav-actions">
+        <div class="col-xs-2 nav-actions">
             {% if app.user %}
                 <a id="btn-movie-create" href="{{ path('get_movie_create', {
                     '_format' : 'html'
@@ -12,11 +12,11 @@
             {% endif %}
         </div>
         
-        <div class="col-sm-5">
+        <div class="col-xs-5 text-left">
             <h4>Austin's Movie Manager</h4>
         </div>
         
-        <div class="col-sm-2 login-container">
+        <div class="col-xs-2 login-container">
             {% if app.user %}
                 <a href="{{ logout_path('main') }}" class="btn btn-sm btn-secondary">Logout</a>
             {% else %}

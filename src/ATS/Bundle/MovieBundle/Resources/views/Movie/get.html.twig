@@ -1,75 +1,77 @@
 {% for movie in movies %}
-    <form id="frm-movie-tile-{{ movie.id }}" action="{{ path('post_movie_edit', {'id': movie.id}) }}" method="post" class="col-xs-2 movie-tile text-center" data-id="{{ movie.id }}">
-        {% if app.user and app.user.id == movie.owner.id %}
-            {% embed '@ATSMovie/Movie/components/crud.html.twig' %}
-            {% endembed %}
-        {% elseif app.user %}
-            <div class="row other-owner">
-                <div class="col-sm-12">
-                    owned by: <span>{{ movie.owner.username }}</span>
+    <div id="frm-movie-tile-{{ movie.id }}" class="col-xs-4 movie-tile text-center" data-id="{{ movie.id }}">
+        <form action="{{ path('post_movie_edit', {'id': movie.id}) }}" method="post">
+            {% if app.user and app.user.id == movie.owner.id %}
+                {% embed '@ATSMovie/Movie/components/crud.html.twig' %}
+                {% endembed %}
+            {% elseif app.user %}
+                <div class="row other-owner">
+                    <div class="col-xs-12">
+                        owned by: <span>{{ movie.owner.username }}</span>
+                    </div>
                 </div>
-            </div>
-        {% endif %}
-        
-        <div class="row">
-            <div class="col-sm-12">
-                <span>{{ movie.title }}</span>
-                <input name="title" type="text" class="hidden form-control" value="{{ movie.title }}" pattern=".{1,50}" required>
-            </div>
-        </div>
-        
-        {% image
-            '@ATSMovieBundle/Resources/public/images/movie-placeholder.png'
-            output='images/movie-placeholder.png'
-        %}
-            <img src="{{ asset_url }}" alt="Movie Poster" />
-        {% endimage %}
-        
-        <div class="meta-data">
-            <div class="row">
-                <div class="col-sm-5">Date Added:</div>
-                <div class="col-sm-7">{{ movie.getDateCreated()|date('m/d/Y') }}</div>
-            </div>
+            {% endif %}
             
             <div class="row">
-                <div class="col-sm-5">Format:</div>
-                <div class="col-sm-7">
-                    <span>{{ movie.format }}</span>
-                    <select name="format" class="hidden chosen-select form-control">
-                        {% for format in ['Streaming', 'DVD', 'VHS'] %}
-                            <option value="{{ format }}"{% if movie.format == format %} selected="selected"{% endif %}>{{ format }}</option>
-                        {% endfor %}
-                    </select>
+                <div class="col-xs-12">
+                    <span>{{ movie.title }}</span>
+                    <input name="title" type="text" class="hidden form-control" value="{{ movie.title }}" pattern=".{1,50}" required>
                 </div>
             </div>
             
-            <div class="row">
-                <div class="col-sm-5">Released:</div>
-                <div class="col-sm-7">
-                    <span>{{ movie.getYear() }}</span>
-                    <input name="year" type="number" class="hidden form-control" value="{{ movie.getYear() }}" min="1801" max="2099" required>
-                </div>
-            </div>
+            {% image
+                '@ATSMovieBundle/Resources/public/images/movie-placeholder.png'
+                output='images/movie-placeholder.png'
+            %}
+                <img src="{{ asset_url }}" alt="Movie Poster" />
+            {% endimage %}
             
-            <div class="row">
-                <div class="col-sm-5">Runtime:</div>
-                <div class="col-sm-7">
-                    <span>{{ movie.getRuntime() }}</span>
-                    <input name="length" type="number" class="hidden form-control" value="{{ movie.length / 60 }}" min="1" max="499" required>
-                </div>
-            </div>
-            
-            <div class="row">
-                <div class="col-sm-5">Rating:</div>
-                <div class="col-sm-offset-1 col-sm-5">
-                    {#<input name="rating" type="text" class="hidden form-control" value="{{ movie.getRating() }}">#}
-                    {% embed '@ATSMovie/Movie/components/rating.html.twig' %}
-                    {% endembed %}
+            <div class="meta-data">
+                <div class="row">
+                    <div class="col-xs-5">Date Added:</div>
+                    <div class="col-xs-7">{{ movie.getDateCreated()|date('m/d/Y') }}</div>
                 </div>
                 
-                <div class="col-sm-offset-1"></div>
+                <div class="row">
+                    <div class="col-xs-5">Format:</div>
+                    <div class="col-xs-7">
+                        <span>{{ movie.format }}</span>
+                        <select name="format" class="hidden chosen-select form-control">
+                            {% for format in ['Streaming', 'DVD', 'VHS'] %}
+                                <option value="{{ format }}"{% if movie.format == format %} selected="selected"{% endif %}>{{ format }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-xs-5">Released:</div>
+                    <div class="col-xs-7">
+                        <span>{{ movie.getYear() }}</span>
+                        <input name="year" type="number" class="hidden form-control" value="{{ movie.getYear() }}" min="1801" max="2099" required>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-xs-5">Runtime:</div>
+                    <div class="col-xs-7">
+                        <span>{{ movie.getRuntime() }}</span>
+                        <input name="length" type="number" class="hidden form-control" value="{{ movie.length / 60 }}" min="1" max="499" required>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-xs-5">Rating:</div>
+                    <div class="col-xs-offset-1 col-xs-5">
+                        {#<input name="rating" type="text" class="hidden form-control" value="{{ movie.getRating() }}">#}
+                        {% embed '@ATSMovie/Movie/components/rating.html.twig' %}
+                        {% endembed %}
+                    </div>
+                    
+                    <div class="col-xs-offset-1"></div>
+                </div>
+                
             </div>
-            
-        </div>
-    </form>
+        </form>
+    </div>
 {% endfor %}
