@@ -5,9 +5,11 @@
         </div>
         
         <div class="col-sm-2 nav-actions">
-            <a id="btn-movie-create" href="{{ path('get_movie_create', {
-                '_format' : 'html'
-            }) }}"><i class="fa fa-plus" aria-hidden="true"></i> Add</a>
+            {% if app.user %}
+                <a id="btn-movie-create" href="{{ path('get_movie_create', {
+                    '_format' : 'html'
+                }) }}"><i class="fa fa-plus" aria-hidden="true"></i> Add</a>
+            {% endif %}
         </div>
         
         <div class="col-sm-5">

@@ -1,8 +1,6 @@
 @import 'review-stars.less';
 
 .top-nav {
-  //background: #1919d2;
-  //color: #FFF;
   border-radius: 15px;
   margin-bottom: 2em;
   
@@ -23,21 +21,6 @@
     input {
       display: none;
     }
-    
-    /*unicode-bidi: bidi-override;
-    direction: rtl;
-  
-    & > span {
-      display: inline-block;
-      position: relative;
-      width: 1.1em;
-    }
-    & > span:hover:before,
-    & > span:hover ~ span:before {
-       content: "\2605";
-       position: absolute;
-    }*/
-    
   }
 }
 
@@ -48,9 +31,32 @@
     margin-top: 2em;
     
     .movie-tile {
+      .other-owner {
+        height: 30px;
+        line-height: 25px;
+        border-radius: 25px;
+        background: #CCC;
+        
+        span {
+          font-weight: bold;
+        }
+      }
+      
+      .crud-row {
+        margin-bottom: 0.25em;
+      }
+      
       img {
         width: 100px;
         height: 100px;
+      }
+      
+      .rating {
+        float: none;
+        
+        label {
+          font-size: 100%;
+        }
       }
     }
   }

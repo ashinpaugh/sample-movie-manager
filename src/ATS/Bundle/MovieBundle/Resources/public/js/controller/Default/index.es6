@@ -16,21 +16,12 @@
         });
         
         $('#btn-login-submit').click(function () {
-            //$('#frm-login').submit();
             $.ajax({
                 method: 'post',
                 url:    getAPIUrl('login.json'),
                 data:   {
                     _username: $('#username').val(),
                     _password: $('#password').val()
-                },
-                success: function (xhr) {
-                    console.log('success');
-                    console.log(xhr);
-                },
-                error: function (xhr) {
-                    console.log('error');
-                    console.log(xhr);
                 }
             });
         });
@@ -63,8 +54,33 @@
             });
         });
         
-        $('#rating').on('click', function (e) {
-            console.log(e);
+        $('.edit').click(function (e) {
+            e.preventDefault();
+            
+            let tile = $(this).parents('.movie-tile');
+            tile
+                .find('.row')
+                    .find('span')
+                        .hide()
+                    .end()
+                    .find('input, select')
+                        .toggleClass('hidden')
+            ;
+        });
+        
+        $('.delete').click(function (e) {
+            e.preventDefault();
+            
+            let parent = $(this).parents('.movie-tile');
+            
+            $.ajax({
+                method: 'delete',
+                url:    getAPIUrl('movie/' + parent.data('id') + '.json'),
+                
+                success: function () {
+                    window.location.reload();
+                }
+            });
         });
     }
     

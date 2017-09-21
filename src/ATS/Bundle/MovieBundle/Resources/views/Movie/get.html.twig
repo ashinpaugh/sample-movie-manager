@@ -1,6 +1,22 @@
 {% for movie in movies %}
-    <div class="col-xs-2 movie-tile text-center" data-id="{{ movie.id }}">
-        <div class="title">{{ movie.title }}</div>
+    <form id="frm-movie-tile-{{ movie.id }}" action="{{ path('post_movie_edit', {'id': movie.id}) }}" method="post" class="col-xs-2 movie-tile text-center" data-id="{{ movie.id }}">
+        {% if app.user and app.user.id == movie.owner.id %}
+            {% embed '@ATSMovie/Movie/components/crud.html.twig' %}
+            {% endembed %}
+        {% elseif app.user %}
+            <div class="row other-owner">
+                <div class="col-sm-12">
+                    owned by: <span>{{ movie.owner.username }}</span>
+                </div>
+            </div>
+        {% endif %}
+        
+        <div class="row">
+            <div class="col-sm-12">
+                <span>{{ movie.title }}</span>
+                <input name="title" type="text" class="hidden form-control" value="{{ movie.title }}" minlength="1" maxlength="50">
+            </div>
+        </div>
         
         {% image
             '@ATSMovieBundle/Resources/public/images/movie-placeholder.png'
@@ -11,36 +27,49 @@
         
         <div class="meta-data">
             <div class="row">
-                {#<span>&#9734;</span><span>&#9734;</span><span>&#9734;</span><span>&#9734;</span><span>&#9734;</span>#}
                 <div class="col-sm-5">Date Added:</div>
                 <div class="col-sm-7">{{ movie.getDateCreated()|date('m/d/Y') }}</div>
             </div>
             
             <div class="row">
+                <div class="col-sm-5">Format:</div>
+                <div class="col-sm-7">
+                    <span>{{ movie.format }}</span>
+                    <select name="format" class="hidden chosen-select form-control">
+                        {% for format in ['Streaming', 'DVD', 'VHS'] %}
+                            <option value="{{ format }}"{% if movie.format == format %} selected="selected"{% endif %}>{{ format }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            
+            <div class="row">
                 <div class="col-sm-5">Released:</div>
-                <div class="col-sm-7">{{ movie.getYear() }}</div>
+                <div class="col-sm-7">
+                    <span>{{ movie.getYear() }}</span>
+                    <input name="year" type="text" class="hidden form-control" value="{{ movie.getYear() }}" min="1801" max="2099">
+                </div>
             </div>
             
             <div class="row">
                 <div class="col-sm-5">Runtime:</div>
-                <div class="col-sm-7">{{ movie.getRuntime() }}</div>
-            </div>
-            
-            {#<div class="row">
-                <div class="col-sm-5">Reviews:</div>
-                <div class="col-sm-7">{{ movie.reviews|length }}</div>
+                <div class="col-sm-7">
+                    <span>{{ movie.getRuntime() }}</span>
+                    <input name="length" type="text" class="hidden form-control" value="{{ movie.length / 60 }}" min="1" max="499">
+                </div>
             </div>
             
             <div class="row">
-                <div class="col-sm-5">Avg Rating:</div>
-                <div class="col-sm-7">{{ movie.avgRating|round(2) }}</div>
-            </div>#}
-            
-            {#<div class="row">
-                <div class="col-sm-5"></div>
-                <div class="col-sm-7"></div>
-            </div>#}
+                <div class="col-sm-5">Rating:</div>
+                <div class="col-sm-offset-1 col-sm-5">
+                    {#<input name="rating" type="text" class="hidden form-control" value="{{ movie.getRating() }}">#}
+                    {% embed '@ATSMovie/Movie/components/rating.html.twig' %}
+                    {% endembed %}
+                </div>
+                
+                <div class="col-sm-offset-1"></div>
+            </div>
             
         </div>
-    </div>
+    </form>
 {% endfor %}

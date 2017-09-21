@@ -7,8 +7,10 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\Annotations\Route;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 use FOS\RestBundle\Controller\Annotations\View;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 /**
@@ -60,6 +62,66 @@ class MovieController extends AbstractController
         
         $manager = $this->getDoctrine()->getManager();
         $manager->persist($movie);
+        $manager->flush();
+        
+        return $this->redirectToRoute('homepage');
+    }
+    
+    /**
+     * @Rest\Post()
+     * @Route("/movie/edit/{id}")
+     * @Security("has_role('ROLE_USER')")
+     *
+     * @ParamConverter("movie", class="ATSMovieBundle:Movie")
+     *
+     * @param Request $request
+     * @param Movie   $movie
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function postEditAction(Request $request, Movie $movie)
+    {
+        if ($movie->getOwner()->getId() !== $this->getUser()->getId()) {
+            throw new AccessDeniedHttpException("This movie doesn't belong to you.");
+        }
+        
+        if (!$this->isValidSubmission($request)) {
+            throw new BadRequestHttpException('Invalid values.');
+        }
+        
+        $movie
+            ->setTitle($request->get('title'))
+            ->setFormat($request->get('format'))
+            ->setLength($request->get('length') * 60)
+            ->setYear($request->get('year'))
+            ->setRating($request->get('rating'))
+        ;
+        
+        $manager = $this->getDoctrine()->getManager();
+        $manager->flush();
+        
+        return $this->redirectToRoute('homepage');
+    }
+    
+    /**
+     * @Rest\Delete()
+     * @Route("/movie/{id}")
+     * @Security("has_role('ROLE_USER')")
+     *
+     * @ParamConverter("movie", class="ATSMovieBundle:Movie")
+     *
+     * @param Movie $movie
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteAction(Movie $movie)
+    {
+        if ($movie->getOwner()->getId() !== $this->getUser()->getId()) {
+            throw new AccessDeniedHttpException("This movie doesn't belong to you.");
+        }
+        
+        $manager = $this->getDoctrine()->getManager();
+        $manager->remove($movie);
         $manager->flush();
         
         return $this->redirectToRoute('homepage');

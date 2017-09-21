@@ -6,7 +6,7 @@
         </label>
 
         <div class="col-md-9">
-            <input id="title" type="text" name="title" class="form-control" minlength="1" maxlength="50" />
+            <input id="title" type="text" name="title" class="form-control" placeholder="Title..." minlength="1" maxlength="50" />
         </div>
     </div>
     
@@ -17,7 +17,7 @@
         </label>
 
         <div class="col-md-9">
-            <select id="format" class="chosen-select form-control" name="format" required>
+            <select id="format" class="chosen-select form-control" name="format" data-placeholder="Format..." required>
                 <option></option>
                 <option value="Streaming">Streaming</option>
                 <option value="DVD">DVD</option>
@@ -33,7 +33,7 @@
         </label>
 
         <div class="col-md-9">
-            <input id="length" type="text" name="length" class="form-control" placeholder="Duration in minutes..." min="1" max="499" />
+            <input id="length" type="number" name="length" class="form-control" placeholder="Duration in minutes..." min="1" max="499" />
         </div>
     </div>
     
@@ -44,7 +44,9 @@
         </label>
 
         <div class="col-md-9">
-            <select id="year" class="chosen-select form-control" name="year" required>
+            <select id="year" class="chosen-select form-control" name="year" data-placeholder="Year..." required>
+                <option></option>
+                
                 {% for i in 1801..2099 %}
                     <option value="{{ i }}">{{ i }}</option>
                 {% endfor %}
@@ -59,11 +61,7 @@
         </label>
 
         <div class="col-md-9">
-            <fieldset class="rating text-left">
-                {% for i in 5..1 %}
-                    <input id="rating-{{ i }}" type="radio" name="rating" value="{{ i }}"><label for="rating-{{ i }}">{{ i }} star</label>
-                {% endfor %}
-            </fieldset>
+            {% include '@ATSMovie/Movie/components/rating.html.twig' %}
         </div>
     </div>
 

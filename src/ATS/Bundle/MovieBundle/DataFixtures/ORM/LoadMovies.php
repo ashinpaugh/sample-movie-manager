@@ -21,6 +21,7 @@ class LoadMovies extends AbstractFixture
             ->setYear(2011)
             ->setFormat('DVD')
             ->setLength(5400)
+            ->setRating(5)
             ->setOwner($this->getReference('ashinpaugh'))
         ;
         
@@ -34,6 +35,7 @@ class LoadMovies extends AbstractFixture
             ->setYear(2004)
             ->setFormat('VHS')
             ->setLength(4800)
+            ->setRating(1)
             ->setOwner($this->getReference('dog'))
         ;
         
