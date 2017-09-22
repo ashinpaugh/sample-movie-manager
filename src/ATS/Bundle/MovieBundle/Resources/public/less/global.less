@@ -1,26 +1,35 @@
 @import 'review-stars.less';
 
 .top-nav {
+  height: 35px;
   border-radius: 15px;
   margin-bottom: 2em;
   
   .nav-items {
     margin-top: 0.5em;
     
-    h4 {
-      margin-top: 0;
+    .title {
+      
+      .logo {
+        width: 30px;
+        height: 25px;
+      }
+
+      h4 {
+        margin-top: 0;
+        display: inline-block;
+        line-height: 25px;
+      }
     }
   }
 }
 
-/**
- * @see https://css-tricks.com/star-ratings/
- */
-#frm-create {
-  #rating {
-    input {
-      display: none;
-    }
+.footer {
+  margin: 1em 0 0;
+  padding: 0.5em;
+  
+  a {
+    color: #000000;
   }
 }
 

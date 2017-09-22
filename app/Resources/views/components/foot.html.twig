@@ -2,5 +2,16 @@
  # Content that comes after the body content.
  #}
 
-{% include 'components/scripts.html.twig' %}
+<div class="row footer">
+    <div class="col-xs-offset-1 col-xs-9">
+        <a href="http://github.com/ashinpaugh">
+            Created by Austin Shinpaugh
+        </a>
+    </div>
+    
+    <div class="col-xs-1">
+        Copyright &copy; {{ 'now'|date('Y') }}
+    </div>
+</div>
 
+{% include 'components/scripts.html.twig' %}
