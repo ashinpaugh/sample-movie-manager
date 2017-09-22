@@ -14,7 +14,7 @@
         </div>
     {% endif %}
     
-    <div class="col-xs-{% if app.user %}6{% else %}8{% endif %}">
+    <div class="{% if not app.user %}col-xs-offset-2{% endif %} col-xs-6">
         <select id="search" class="chosen-select form-control" data-placeholder="Seach for an existing movie...">
             <option></option>
         </select>
