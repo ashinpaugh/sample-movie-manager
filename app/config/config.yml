@@ -15,8 +15,8 @@ assetic:
     bundles:        [ ATSMovieBundle ]
     filters:
         cssrewrite: ~
-    #    jsqueeze:
-    #        keep_important_comments: true
+        jsqueeze:
+            keep_important_comments: true
         lessphp:
             apply_to:  "\\.(less|css)$"
             formatter: "compressed"
