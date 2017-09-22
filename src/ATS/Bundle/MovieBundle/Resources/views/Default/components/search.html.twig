@@ -1,5 +1,5 @@
 <script>
-    let movies = {{ render(controller('ATSMovieBundle:Movie:get', {
+    let movies = {{ render(controller('ATSMovieBundle:Movie:cget', {
         '_format' : 'json'
     })) }};
 </script>
@@ -8,7 +8,7 @@
     
     {% if app.user %}
         <div class="col-xs-4 col-sm-2 text-center">
-            <button id="btn-movie-create" class="btn btn-sm btn-default" data-href="{{ path('get_movie_create', {
+            <button id="btn-movie-create" class="btn btn-sm btn-default" data-href="{{ path('get_movie', {
                 '_format' : 'html'
             }) }}"><i class="fa fa-plus" aria-hidden="true"></i> Add</button>
         </div>

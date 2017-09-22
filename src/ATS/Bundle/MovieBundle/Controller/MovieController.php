@@ -9,6 +9,7 @@ use FOS\RestBundle\Controller\Annotations\RouteResource;
 use FOS\RestBundle\Controller\Annotations\View;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -20,31 +21,49 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 class MovieController extends AbstractController
 {
     /**
-     * @param null $username
-     *
+     * Used to print the individual movie tiles.
+     * 
+     * @Route("/movie/list")
+     * @Template("@ATSMovie/Movie/list.html.twig")
+     * 
      * @return array
      */
-    public function getAction(Request $request)
+    public function getListAction()
     {
-        return ['movies' => $this->getMovies([
-            'owner' => $request->attributes->get('user'),
-        ])];
+        return ['movies' => $this->getMovies()];
     }
     
     /**
-     * @Route("/movie/create")
+     * Return all the movies, used for adding the serialized movie entities
+     * to the page for Chosen.
+     * 
+     * @Route(requirements={"_format"="json"})
+     * 
+     * @return array
+     */
+    public function cgetAction()
+    {
+        return ['movies' => $this->getMovies()];
+    }
+    
+    /**
+     * Prints the create movie template.
+     * 
+     * @Route("/movie")
      * @Security("has_role('ROLE_USER')")
      */
-    public function getCreateAction()
+    public function getAction()
     {
         return $this->render('@ATSMovie/Movie/create.html.twig');
     }
     
     /**
-     * @Route("/movie/create")
+     * Create a movie.
+     * 
+     * @Route("/movie")
      * @Security("has_role('ROLE_USER')")
      */
-    public function postCreateAction(Request $request)
+    public function putAction(Request $request)
     {
         if (!$this->isValidSubmission($request)) {
             throw new BadRequestHttpException('Invalid values.');
@@ -68,8 +87,9 @@ class MovieController extends AbstractController
     }
     
     /**
-     * @Rest\Post()
-     * @Route("/movie/edit/{id}")
+     * Edit a movie.
+     *
+     * @Route("/movie/{id}")
      * @Security("has_role('ROLE_USER')")
      *
      * @ParamConverter("movie", class="ATSMovieBundle:Movie")
@@ -79,7 +99,7 @@ class MovieController extends AbstractController
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function postEditAction(Request $request, Movie $movie)
+    public function patchAction(Request $request, Movie $movie)
     {
         if ($movie->getOwner()->getId() !== $this->getUser()->getId()) {
             throw new AccessDeniedHttpException("This movie doesn't belong to you.");
@@ -104,7 +124,8 @@ class MovieController extends AbstractController
     }
     
     /**
-     * @Rest\Delete()
+     * Remove a movie.
+     * 
      * @Route("/movie/{id}")
      * @Security("has_role('ROLE_USER')")
      *
@@ -141,6 +162,13 @@ class MovieController extends AbstractController
         return $repo->findBy(array_filter($filters));
     }
     
+    /**
+     * Validate a submission (create / edit) before storing the received values.
+     * 
+     * @param Request $request
+     *
+     * @return bool
+     */
     private function isValidSubmission(Request $request)
     {
         $title    = $request->get('title');

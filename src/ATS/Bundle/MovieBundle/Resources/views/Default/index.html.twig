@@ -17,7 +17,7 @@
     {% endembed %}
     
     <div class="available-movies row">
-        {{ render(controller('ATSMovieBundle:Movie:get', {
+        {{ render(controller('ATSMovieBundle:Movie:getList', {
             '_format' : 'html'
         })) }}
     </div>

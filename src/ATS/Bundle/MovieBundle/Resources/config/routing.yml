@@ -6,10 +6,6 @@ security:
     type:     annotation
     resource: "@ATSMovieBundle/Controller/SecurityController.php"
 
-account:
-    type:     annotation
-    resource: "@ATSMovieBundle/Controller/AccountController.php"
-
 api:
     type:     rest
     resource: "@ATSMovieBundle/Controller/MovieController.php"

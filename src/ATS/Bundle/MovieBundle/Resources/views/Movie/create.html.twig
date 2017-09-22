@@ -1,4 +1,4 @@
-<form id="frm-create" method="post" action="{{ path('post_movie_create') }}" class="container-fluid">
+<form id="frm-create" method="post" action="{{ path('put_movie') }}" class="container-fluid">
     <div>
         <div class="row">
             <label for="title" class="col-xs-3 control-label">
@@ -81,6 +81,8 @@
     <div class="actions text-right">
         <button class="btn btn-primary" type="submit">Submit</button>
     </div>
+    
+    <input name="_method" value="put" hidden/>
 </form>
 
 <script>
