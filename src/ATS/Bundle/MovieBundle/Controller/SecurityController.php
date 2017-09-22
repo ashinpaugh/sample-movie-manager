@@ -53,13 +53,7 @@ class SecurityController extends AbstractController
         $found = $repo->findBy(['username' => $username]);
         
         if (count($found)) {
-            $exception = new BadCredentialsException('That username is already taken.');
-            $request->attributes->add([
-                Security::AUTHENTICATION_ERROR => $exception,
-                Security::LAST_USERNAME        => $username,
-            ]);
-            
-            throw $exception;
+            return Response::create('That username is already taken.', 400);
         }
         
         $encoder = $this->container->get('security.password_encoder');

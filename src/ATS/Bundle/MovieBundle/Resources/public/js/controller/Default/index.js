@@ -37,6 +37,25 @@
             $('#frm-login').slideDown();
         });
 
+        $('#frm-signup').submit(function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                method: 'post',
+                url: e.target.action,
+                data: {
+                    username: $(e.target).find('input[name="username"]').val(),
+                    password: $(e.target).find('input[name="username"]').val()
+                },
+                success: function success() {
+                    window.location.reload();
+                },
+                error: function error(xhr) {
+                    $('#login-error').removeClass('hidden').text(xhr.responseText);
+                }
+            });
+        });
+
         // Launches the modal popup for movie creation.
         $('#btn-movie-create').click(function (e) {
             e.preventDefault();
