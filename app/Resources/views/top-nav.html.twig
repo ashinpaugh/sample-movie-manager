@@ -1,10 +1,10 @@
 <div class="container-fluid top-nav">
     <div class="row nav-items text-center">
-        <div class="col-xs-4 username-wrapper">
+        <div class="hidden-xs col-sm-4 username-wrapper">
             {% if app.user %}Welcome {{ app.user.username }}!{% endif %}
         </div>
         
-        <div class="col-xs-4 title">
+        <div class="col-xs-8 col-sm-4 title">
             <a href="{{ path('homepage') }}" class="logo-wrapper">
                 {% image
                     '@ATSMovieBundle/Resources/public/images/homepage-icon.png'
@@ -14,7 +14,9 @@
                 {% endimage %}
             </a>
             
-            <h4>Austin's Movie Manager</h4>
+            <h4>
+                <span class="hidden-xs">Austin's Movie</span> Manager
+            </h4>
         </div>
         
         <div class="col-xs-4 login-container{% if error is defined %} hidden{% endif %}">

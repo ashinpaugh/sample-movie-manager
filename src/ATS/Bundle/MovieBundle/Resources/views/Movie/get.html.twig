@@ -1,5 +1,5 @@
 {% for movie in movies %}
-    <div class="col-xs-12 col-sm-3 col-lg-2 movie-tile text-center" data-id="{{ movie.id }}">
+    <div class="col-xs-11 col-sm-3 col-lg-2 movie-tile text-center" data-id="{{ movie.id }}">
         <form id="frm-movie-tile-{{ movie.id }}" action="{{ path('post_movie_edit', {'id': movie.id}) }}" method="post">
             {% if app.user and app.user.id == movie.owner.id %}
                 {% embed '@ATSMovie/Movie/components/crud.html.twig' with {'movie' : movie} %}

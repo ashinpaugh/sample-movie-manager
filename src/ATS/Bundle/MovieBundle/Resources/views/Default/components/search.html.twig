@@ -7,20 +7,20 @@
 <div class="row search-wrapper">
     
     {% if app.user %}
-        <div class="col-xs-2 text-center">
+        <div class="col-xs-4 col-sm-2 text-center">
             <button id="btn-movie-create" class="btn btn-sm btn-default" data-href="{{ path('get_movie_create', {
                 '_format' : 'html'
             }) }}"><i class="fa fa-plus" aria-hidden="true"></i> Add</button>
         </div>
     {% endif %}
     
-    <div class="{% if not app.user %}col-xs-offset-2{% endif %} col-xs-6">
+    <div class="hidden-xs {% if not app.user %}col-sm-offset-2{% endif %} col-sm-6">
         <select id="search" class="chosen-select form-control" data-placeholder="Seach for an existing movie...">
             <option></option>
         </select>
     </div>
     
-    <div class="col-xs-4">
+    <div class="{% if app.user %}col-xs-8{% else %}col-xs-12{% endif %} col-sm-3">
         <select id="sort" class="form-control">
             <option value="" disabled selected hidden>Sort by...</option>
             <option value="format">Format</option>
