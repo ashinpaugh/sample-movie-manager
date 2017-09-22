@@ -103,7 +103,23 @@
 
             // Update the text label display values.
             input.change(function () {
-                $(this).parent().find('span:first').text($(this).val());
+                var input = void 0,
+                    value = void 0,
+                    label = void 0;
+                input = $(this);
+                value = input.val();
+                label = input.parent().find('span:first');
+
+                if ('length' === input.attr('name')) {
+                    var hour = void 0,
+                        min = void 0;
+                    hour = Math.floor(value / 60);
+                    min = Math.floor(value % 60);
+
+                    value = hour + ' hrs ' + min + 'm';
+                }
+
+                label.text(value);
             });
         });
 
@@ -131,9 +147,11 @@
 
         // Setup the chosen search filter.
         var collection = void 0,
+            search = void 0,
             idx = void 0,
             movie = void 0;
         collection = movies['movies'];
+        search = $('#search');
 
         for (idx in collection) {
             if (!collection.hasOwnProperty(idx)) {
@@ -141,10 +159,10 @@
             }
 
             movie = collection[idx];
-            $('<option>').attr('value', movie.id).text(movie.title).appendTo($('#search'));
+            $('<option>').attr('value', movie.id).text(movie.title).appendTo(search);
         }
 
-        $('#search').chosen({
+        search.chosen({
             width: '100%',
             allow_single_deselect: true
         }).on('change', function (e) {
