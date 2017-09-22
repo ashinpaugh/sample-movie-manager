@@ -226,7 +226,13 @@
         tiles.each(function () {
             var field = void 0,
                 value = void 0;
-            field = $('input[name="' + attr + '"], input[name="' + attr + '"]:checked:last, select[name="' + attr + '"] option:selected', this);
+
+            if ('rating' === attr) {
+                field = $('input[name="' + attr + '"]:checked:last', this);
+            } else {
+                field = $('input[name="' + attr + '"], select[name="' + attr + '"] option:selected', this);
+            }
+
             value = field.val();
 
             output.push({
