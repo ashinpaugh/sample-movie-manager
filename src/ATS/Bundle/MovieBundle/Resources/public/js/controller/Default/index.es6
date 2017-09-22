@@ -24,18 +24,6 @@
             $('#login-modal').modal('show');
         });
         
-        // Logs a user in.
-        $('#btn-login-submit').click(function () {
-            $.ajax({
-                method: 'post',
-                url:    getAPIUrl('login.json'),
-                data:   {
-                    _username: $('#username').val(),
-                    _password: $('#password').val()
-                }
-            });
-        });
-        
         // Toggle between the Login and Signup modal forms.
         $('#btn-action-signup').click(function () {
             $('#frm-login').slideUp();
@@ -160,7 +148,7 @@
         search.chosen({
             width: '100%',
             allow_single_deselect: true
-        }).on('change', function (e) {
+        }).on('change', function () {
             let available, selected;
             available = $('.available-movies');
             selected  = $(this).val();

@@ -1,59 +1,68 @@
-{#{% extends '::base.html.twig' %}#}
-{% extends '::base-light.html.twig' %}
+{% extends error ? '::base.html.twig' : '::base-light.html.twig' %}
+
+{% set columns = error ? 'col-xs-offset-4 col-xs-4' : 'col-xs-12' %}
 
 {% block body %}
-
-{% if error %}
-    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-{% endif %}
-
-    <div class="credentials">
-        <form id="frm-login" action="{{ path('login_check') }}" method="post">
-            <h5>Login</h5>
-            <div class="form-row">
-                {#<label for="username">Username:</label>#}
-                <div class="col">
-                    <input placeholder="Username" class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" />
-                </div>
-                
-                {#<label for="password">Password:</label>#}
-                <div class="col">
-                    <input placeholder="Password" class="form-control" type="password" id="password" name="_password" />
-                </div>
-            </div>
-            {#
-                If you want to control the URL the user
-                is redirected to on success (more details below)#}
-                {#<input type="hidden" name="_target_path" value="{{ path('homepage') }}" />
-            #}
-            
-            <div class="actions">
-                <button id="btn-action-signup" type="button" class="btn btn-default">signup</button>
-                <button type="submit" class="btn btn-primary">login</button>
-            </div>
-            
-            <div class="clearfix"></div>
-        </form>
+    <div class="row">
         
-        <form id="frm-signup" action="{{ path('security.create') }}" method="post">
-            <h5>Signup</h5>
-            <div class="form-row">
-                <div class="col">
-                    <input placeholder="Username" class="form-control" type="text" id="signup-username" name="username" />
+        {% if error %}
+            <div class="col-xs-offset-2 col-xs-8"><hr /></div>
+        {% endif %}
+        
+        {% if error %}
+            <div class="{{ columns }}">
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            </div>
+        {% endif %}
+    
+        <div class="{{ columns }} credentials">
+            <form id="frm-login" action="{{ path('login_check') }}" method="post">
+                <h5>Login</h5>
+                <div class="form-row">
+                    {#<label for="username">Username:</label>#}
+                    <div class="col">
+                        <input placeholder="Username" class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" />
+                    </div>
+                    
+                    {#<label for="password">Password:</label>#}
+                    <div class="col">
+                        <input placeholder="Password" class="form-control" type="password" id="password" name="_password" />
+                    </div>
+                </div>
+                {#
+                    If you want to control the URL the user
+                    is redirected to on success (more details below)#}
+                    {#<input type="hidden" name="_target_path" value="{{ path('homepage') }}" />
+                #}
+                
+                <div class="actions">
+                    <button id="btn-action-signup" type="button" class="btn btn-default">signup</button>
+                    <button id="btn-login-submit" type="submit" class="btn btn-primary">login</button>
                 </div>
                 
-                <div class="col">
-                    <input placeholder="Password" class="form-control" type="text" id="signup-password" name="password" />
+                <div class="clearfix"></div>
+            </form>
+            
+            <form id="frm-signup" action="{{ path('security.create') }}" method="post">
+                <h5>Signup</h5>
+                <div class="form-row">
+                    <div class="col">
+                        <input placeholder="Username" class="form-control" type="text" id="signup-username" name="username" />
+                    </div>
+                    
+                    <div class="col">
+                        <input placeholder="Password" class="form-control" type="text" id="signup-password" name="password" />
+                    </div>
                 </div>
-            </div>
-            
-            <div class="actions">
-                <button id="btn-action-login" type="button" class="btn btn-default">login</button>
-                <button type="submit" class="btn btn-primary">signup</button>
-            </div>
-            
-            <div class="clearfix"></div>
-        </form>
+                
+                <div class="actions">
+                    <button id="btn-action-login" type="button" class="btn btn-default">login</button>
+                    <button type="submit" class="btn btn-primary">signup</button>
+                </div>
+                
+                <div class="clearfix"></div>
+            </form>
+        </div>
     </div>
 
 {% endblock %}

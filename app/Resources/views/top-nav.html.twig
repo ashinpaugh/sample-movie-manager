@@ -4,11 +4,11 @@
             {% if app.user %}Welcome {{ app.user.username }}!{% endif %}
         </div>
         
-        <div class="col-xs-5">
+        <div class="col-xs-4">
             <h4>Austin's Movie Manager</h4>
         </div>
         
-        <div class="col-xs-3 login-container">
+        <div class="col-xs-4 login-container{% if error is defined %} hidden{% endif %}">
             {% if app.user %}
                 <a href="{{ logout_path('main') }}" class="btn btn-sm btn-secondary">Logout</a>
             {% else %}
