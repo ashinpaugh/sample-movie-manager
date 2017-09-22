@@ -1,13 +1,13 @@
 {% for movie in movies %}
-    <div class="col-xs-12 col-sm-3 col-md-2 movie-tile text-center" data-id="{{ movie.id }}">
+    <div class="col-xs-12 col-sm-3 col-lg-2 movie-tile text-center" data-id="{{ movie.id }}">
         <form id="frm-movie-tile-{{ movie.id }}" action="{{ path('post_movie_edit', {'id': movie.id}) }}" method="post">
             {% if app.user and app.user.id == movie.owner.id %}
-                {% embed '@ATSMovie/Movie/components/crud.html.twig' %}
+                {% embed '@ATSMovie/Movie/components/crud.html.twig' with {'movie' : movie} %}
                 {% endembed %}
             {% elseif app.user %}
                 <div class="row other-owner">
                     <div class="col-xs-12">
-                        owned by: <span>{{ movie.owner.username }}</span>
+                        <span class="hidden-sm">owned by: </span><span class="owner-username">{{ movie.owner.username }}</span>
                     </div>
                 </div>
             {% endif %}
@@ -28,7 +28,7 @@
             
             <div class="meta-data">
                 <div class="row">
-                    <div class="col-xs-5">Date Added:</div>
+                    <div class="col-xs-5">Created:</div>
                     <div class="col-xs-7">{{ movie.getDateCreated()|date('m/d/Y') }}</div>
                 </div>
                 
@@ -63,7 +63,6 @@
                 <div class="row">
                     <div class="col-xs-5">Rating:</div>
                     <div class="col-xs-7">
-                        {#<input name="rating" type="text" class="hidden form-control" value="{{ movie.getRating() }}">#}
                         {% embed '@ATSMovie/Movie/components/rating.html.twig' %}
                         {% endembed %}
                     </div>
@@ -71,5 +70,7 @@
                 
             </div>
         </form>
+        
+        <div class="clearfix"></div>
     </div>
 {% endfor %}

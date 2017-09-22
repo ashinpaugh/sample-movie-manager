@@ -5,11 +5,29 @@
 </script>
 
 <div class="row search-wrapper">
-    <label for="search" class="label" aria-hidden="true">Search:</label>
     
-    <div class="col-xs-offset-2 col-xs-8">
+    {% if app.user %}
+        <div class="col-xs-2 text-center">
+            <button id="btn-movie-create" class="btn btn-sm btn-default" data-href="{{ path('get_movie_create', {
+                '_format' : 'html'
+            }) }}"><i class="fa fa-plus" aria-hidden="true"></i> Add</button>
+        </div>
+    {% endif %}
+    
+    <div class="col-xs-{% if app.user %}6{% else %}8{% endif %}">
         <select id="search" class="chosen-select form-control" data-placeholder="Seach for an existing movie...">
             <option></option>
+        </select>
+    </div>
+    
+    <div class="col-xs-4">
+        <select id="sort" class="form-control">
+            <option value="" disabled selected hidden>Sort by...</option>
+            <option value="format">Format</option>
+            <option value="length">Duration</option>
+            <option value="year">Year</option>
+            <option value="rating">Rating</option>
+            <option value="title">Title</option>
         </select>
     </div>
 </div>

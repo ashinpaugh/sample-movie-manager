@@ -17,9 +17,11 @@
     {% endembed %}
     
     <div class="available-movies">
-        {{ render(controller('ATSMovieBundle:Movie:get', {
-            '_format' : 'html'
-        })) }}
+        <div class="row">
+            {{ render(controller('ATSMovieBundle:Movie:get', {
+                '_format' : 'html'
+            })) }}
+        </div>
     </div>
 
     {% embed '@ATSMovie/Default/components/login.html.twig' %}
