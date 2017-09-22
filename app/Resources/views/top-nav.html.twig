@@ -6,7 +6,7 @@
         
         <div class="col-xs-2 nav-actions">
             {% if app.user %}
-                <a id="btn-movie-create" href="{{ path('get_movie_create', {
+                <a id="btn-movie-create" class="btn btn-xs btn-default" href="{{ path('get_movie_create', {
                     '_format' : 'html'
                 }) }}"><i class="fa fa-plus" aria-hidden="true"></i> Add</a>
             {% endif %}

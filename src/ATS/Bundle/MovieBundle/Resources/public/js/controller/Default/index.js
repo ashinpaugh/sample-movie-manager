@@ -97,6 +97,7 @@
         }
 
         $('#search').chosen({
+            width: '100%',
             allow_single_deselect: true
         }).on('change', function (e) {
             var available = void 0,
