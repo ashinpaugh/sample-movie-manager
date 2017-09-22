@@ -16,12 +16,10 @@
     {% embed '@ATSMovie/Default/components/search.html.twig' %}
     {% endembed %}
     
-    <div class="available-movies">
-        <div class="row">
-            {{ render(controller('ATSMovieBundle:Movie:get', {
-                '_format' : 'html'
-            })) }}
-        </div>
+    <div class="available-movies row">
+        {{ render(controller('ATSMovieBundle:Movie:get', {
+            '_format' : 'html'
+        })) }}
     </div>
 
     {% embed '@ATSMovie/Default/components/login.html.twig' %}

@@ -212,12 +212,14 @@
     function sortMovies(attr) {
         var wrapper = void 0,
             items = void 0,
+            tiles = void 0,
             idx = void 0;
 
         wrapper = $('.available-movies');
         items = getTilesByAttr(attr);
+        tiles = $('.movie-tile');
 
-        $('.movie-tile').remove();
+        tiles.remove();
 
         for (idx in items) {
             if (!items.hasOwnProperty(idx)) {
